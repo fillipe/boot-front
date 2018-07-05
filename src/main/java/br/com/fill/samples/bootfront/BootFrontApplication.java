@@ -2,10 +2,9 @@ package br.com.fill.samples.bootfront;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
-import br.com.fill.samples.bootfront.controller.HomeController;
-
+@EnableFeignClients
 @SpringBootApplication
 public class BootFrontApplication {
 
