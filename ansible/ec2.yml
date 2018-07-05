@@ -1,0 +1,68 @@
+---
+- hosts: 'front'
+  tasks:
+    - name: Instalando o docker
+      yum:
+        name: '{{ item }}'
+        state: latest
+      with_items:
+        - python-pip
+        - docker
+      become: yes
+
+    - name: 'Instalando o modulo docker-py'
+      pip:
+        name: docker
+        state: latest
+      become: yes
+
+    - name: 'Garante que o docker está rodando'
+      service:
+        name: docker
+        state: started
+      become: yes
+
+- hosts: 127.0.0.1
+  tasks:
+    - name: Arquivando imagem
+      docker_image:
+        name: '{{ docker_image_name }}'
+        archive_path: '{{ local_tar_name }}'
+
+- hosts: 'front'
+  tasks:
+    - name: 'Fazendo o upload da imagem docker'
+      copy:
+        src: '{{ local_tar_name }}'
+        dest: "{{ remote_tar_name }}"
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+        mode: 0644
+
+    - name: Carregando imagem do sistema de arquivos
+      docker_image:
+        name: "{{ docker_image_name }}"
+        load_path: "{{ remote_tar_name }}"
+        force: yes
+      become: yes
+
+    - name: Efetuando o deploy da aplicação
+      docker_container:
+        name: 'front-da-galera'
+        image: "{{ docker_image_name }}"
+        state: started
+      become: yes
+
+    - name: 'Removendo arquivo da imagem'
+      file:
+        state: absent
+        path: "{{ remote_tar_name }}"
+
+- name: 'Executando limpeza'
+  hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: 'Removendo arquivo gerado pela imagem'
+      file:
+        state: absent
+        path: "{{ local_tar_name }}"
