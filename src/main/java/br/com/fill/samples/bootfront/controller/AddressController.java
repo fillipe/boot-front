@@ -1,32 +1,35 @@
 package br.com.fill.samples.bootfront.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.fill.samples.bootfront.bean.Address;
 import br.com.fill.samples.bootfront.service.CepService;
 
 @Controller
-public class HomeController {
+public class AddressController {
 	
 	@Autowired
 	private CepService cepService;
 	
-	@GetMapping("/home")
+	@GetMapping("/test")
     public String home(Model model) {
 		model.addAttribute("address", new Address());
-        return "home";
+        return "test";
     }
 	
 	@PostMapping("/consultaCep")
-    public ResponseEntity<String> consultaCep(String cep) {
+    public ModelAndView consultaCep(String cep, RedirectAttributes redirect) {
 		Address address = cepService.getCep(cep);
-		return new ResponseEntity<String>(address.toString(), HttpStatus.OK);
+		//modelAndView.addObject("address", address);
+		redirect.addFlashAttribute("address", address);
+		ModelAndView modelAndView = new ModelAndView("redirect:test");
+		return modelAndView;
     }
 
 }
