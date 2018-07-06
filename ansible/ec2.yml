@@ -50,6 +50,9 @@
       docker_container:
         name: 'front-da-galera'
         image: "{{ docker_image_name }}"
+        recreate: yes
+        ports: 
+          - "8080:8080"
         state: started
       become: yes
 

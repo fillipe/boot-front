@@ -1,1 +1,0 @@
-ansible-playbook ansible/ec2.yml -i ansible/hosts --private-key /Users/vitor/Documents/teste-phill.pem --extra-vars '{"docker_image_name":"boot-front:0.0.1-SNAPSHOT","local_tar_name":"boot.tar","remote_tar_name":"/tmp/boot.tar"}'
