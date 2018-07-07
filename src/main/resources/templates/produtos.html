@@ -2,6 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
 <head>
+	<meta charset="utf-8">
 	<title>Cateno - Produtos</title>
 </head>
 <body>
@@ -23,7 +24,7 @@
 						      	<th>Id</th>
 						      	<th>Nome</th>
 						        <th>Status</th>
-						        <th>Id Fantasia Básica</th>
+						        <th>Id Fantasia BÃ¡sica</th>
 						      </tr>
 						      <tr th:each="prod,iterationStatus  : ${products.content}">
 						        <td th:text="${prod.id}"></td>
