@@ -6,14 +6,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/cliente")
-public class ClientController {
-	
-	@GetMapping("/pf")
-    public String clientpf(Model model) {
-        return "clientes-pessoas-fisicas";
+@RequestMapping("/card")
+public class CardController {
+
+	@GetMapping("/password")
+    public String password(Model model) {
+        return "cadastrar-senha";
     }
 	
+	@GetMapping("/create")
+    public String create(Model model) {
+        return "gerar-cartao";
+    }
 	
-
 }

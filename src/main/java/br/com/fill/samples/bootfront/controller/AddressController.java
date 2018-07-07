@@ -17,7 +17,7 @@ public class AddressController {
 	private CepService cepService;
 	
 	@GetMapping("/test")
-    public String home(Model model) {
+    public String test(Model model) {
 		model.addAttribute("address", new Address());
         return "test";
     }

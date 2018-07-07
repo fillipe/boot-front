@@ -34,6 +34,8 @@ import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import nz.net.ultraq.thymeleaf.LayoutDialect;
+
 @Configuration
 @EnableWebMvc
 @ComponentScan
@@ -88,7 +90,13 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Applicat
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setEnableSpringELCompiler(true); // Compiled SpringEL should speed up executions
         templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.addDialect(layoutDialect());
         return templateEngine;
+    }
+    
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
     @Bean
@@ -109,9 +117,9 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter implements Applicat
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/images/**").addResourceLocations("/images/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
+        registry.addResourceHandler("/images/**").addResourceLocations("classpath:/images/");
+        registry.addResourceHandler("/css/**").addResourceLocations("classpath:/css/");
+        registry.addResourceHandler("/js/**").addResourceLocations("classpath:/js/");
     }
 
 }
