@@ -1,4 +1,4 @@
-package br.com.fill.samples.bootfront.bean;
+package br.com.fill.samples.bootfront.model;
 
 public class Address {
 

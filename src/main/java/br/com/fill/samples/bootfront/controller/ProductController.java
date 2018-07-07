@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.fill.samples.bootfront.bean.ProductResponse;
+import br.com.fill.samples.bootfront.model.ProductResponse;
 import br.com.fill.samples.bootfront.service.ProductService;
 
 @Controller

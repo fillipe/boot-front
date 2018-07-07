@@ -9,12 +9,95 @@
 
 	<section layout:fragment="content">
 		<div class="panel panel-default">
-			<div class="panel-heading">Gerar Cartão</div>
+			<div class="panel-heading"><h2>Gerar Cartão</h2></div>
 				<div class="col-sm-8 text-left">
 					<div class="panel-body">
-					
-					<!-- Content here -->
-					
+
+						<form action="#" th:action="@{/card/generateCard}" th:object="${cardRequest}" method="post">
+							<div class="form-group">
+								<label for="card-request-id">Código da conta:</label> 
+								<input type="text" class="form-control" id="card-request-id" th:field="*{id}">
+							</div>
+	
+							<div class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading">Dados para gravura</div>
+									<div class="panel-body">
+										<label for="embossing-pessoa-id">Código da Pessoa:</label> 
+										<input type="text" class="form-control" id="embossing-pessoa-id" th:field="*{cartaoEmbossingRequest.id_pessoa}">
+									</div>
+									<div class="panel-body">
+										<label for="embossing-tipo-plastico-id">Código do tipo de plástico:</label> 
+										<input type="text" class="form-control" id="embossing-tipo-plastico-id" th:field="*{cartaoEmbossingRequest.id_tipo_plastico}">
+									</div>
+								</div>
+							</div>
+	
+							<button type="submit" class="btn btn-primary">Submit</button>
+						</form>
+						
+						<div th:if="${cartaoEmbossingResponse != null}" th:object="${cartaoEmbossingResponse}" class="container-fluid bg-grey">
+							<hr>
+							<div class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading"><h3>Cartão Requisitado com sucesso!</h3></div>
+		  							<div class="row">
+										<div class="panel-body col-sm-4">
+											<label for="flag-virtual-id">Cartão virtual:</label> 
+											<span id="flag-virtual-id" th:text="*{flagVirtual}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="conta-id">Código da conta:</label> 
+											<span id="conta-id" th:text="*{idConta}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="pessoa-id">Código da Pessoa:</label> 
+											<span id="pessoa-id" th:text="*{idPessoa}">
+										</div>
+									</div>
+									<div class="row">
+										<div class="panel-body col-sm-4">
+											<label for="cartao-id">Código do cartão:</label> 
+											<span id="cartao-id" th:text="*{idCartao}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="bandeira-id">Código da bandeira:</label> 
+											<span id="bandeira-id" th:text="*{idBandeira}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="tipo-cartao-id">Código do tipo do cartão:</label> 
+											<span id="tipo-cartao-id" th:text="*{idTipoCartao}">
+										</div>
+									</div>
+									<div class="row">
+										<div class="panel-body col-sm-4">
+											<label for="data-geracao-id">Data de emissão:</label> 
+											<span id="data-geracao-id" th:text="*{dataGeracao}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="data-validade-id">Validade:</label> 
+											<span id="data-validade-id" th:text="*{dataValidade}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<label for="nome-origem-comercial-id">Origem comercial:</label> 
+											<span id="nome-origem-comercial-id" th:text="*{nomeOrigemComercial}">
+										</div>
+									</div>
+									<div class="row">
+										<div class="panel-body col-sm-4">
+											<label for="cpf-id">CPF:</label> 
+											<span id="cpf-id" th:text="*{cpf}">
+										</div>
+										<div class="panel-body col-sm-4">
+											<span></span>
+										</div>
+										<div class="panel-body col-sm-4">
+											<span></span>
+										</div>
+									</div>
+								</div>
+							</div>
+  						</div>
 					</div>
 				</div>
 			</div>

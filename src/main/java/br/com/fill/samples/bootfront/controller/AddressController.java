@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.fill.samples.bootfront.bean.Address;
+import br.com.fill.samples.bootfront.model.Address;
 import br.com.fill.samples.bootfront.service.CepService;
 
 @Controller
