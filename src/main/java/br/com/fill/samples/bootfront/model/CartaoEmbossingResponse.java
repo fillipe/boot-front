@@ -1,5 +1,7 @@
 package br.com.fill.samples.bootfront.model;
 
+import java.util.Date;
+
 public class CartaoEmbossingResponse {
 
 	private Integer flagVirtual;
@@ -8,8 +10,8 @@ public class CartaoEmbossingResponse {
 	private Integer idCartao;
 	private Integer idBandeira;
 	private Integer idTipoCartao;
-	private String dataGeracao;
-	private String dataValidade;
+	private Date dataGeracao;
+	private Date dataValidade;
 	private String nomeOrigemComercial;
 	private String cpf;
 
@@ -61,19 +63,19 @@ public class CartaoEmbossingResponse {
 		this.idTipoCartao = idTipoCartao;
 	}
 
-	public String getDataGeracao() {
+	public Date getDataGeracao() {
 		return dataGeracao;
 	}
 
-	public void setDataGeracao(String dataGeracao) {
+	public void setDataGeracao(Date dataGeracao) {
 		this.dataGeracao = dataGeracao;
 	}
 
-	public String getDataValidade() {
+	public Date getDataValidade() {
 		return dataValidade;
 	}
 
-	public void setDataValidade(String dataValidade) {
+	public void setDataValidade(Date dataValidade) {
 		this.dataValidade = dataValidade;
 	}
 

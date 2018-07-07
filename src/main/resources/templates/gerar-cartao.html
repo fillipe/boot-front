@@ -72,11 +72,11 @@
 									<div class="row">
 										<div class="panel-body col-sm-4">
 											<label for="data-geracao-id">Data de emissão:</label> 
-											<span id="data-geracao-id" th:text="*{dataGeracao}">
+											<span id="data-geracao-id" th:text="*{#dates.format(dataGeracao, 'dd-MM-yyyy HH:mm')}">
 										</div>
 										<div class="panel-body col-sm-4">
 											<label for="data-validade-id">Validade:</label> 
-											<span id="data-validade-id" th:text="*{dataValidade}">
+											<span id="data-validade-id" th:text="*{#dates.format(dataValidade, 'dd-MM-yyyy')}">
 										</div>
 										<div class="panel-body col-sm-4">
 											<label for="nome-origem-comercial-id">Origem comercial:</label> 
