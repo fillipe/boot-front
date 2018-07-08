@@ -1,3 +1,8 @@
+/* Gap between rows */
+.top-buffer { 
+  margin-top:15px; 
+}
+
 /* Remove the navbar's default margin-bottom and rounded borders */
 .navbar {
 	margin-bottom: 0;

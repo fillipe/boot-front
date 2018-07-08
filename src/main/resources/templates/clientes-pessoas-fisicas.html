@@ -4,20 +4,304 @@
 <head>
 	<meta charset="utf-8">
 	<title>Cateno - Cliente PF</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.cpf').mask('000.000.000-00', {reverse: true});
+			$('.rg').mask('00.000.000-0', {reverse: true});
+			$('.money').mask('000.000.000.000.000,00', {reverse: true});
+			$('.phone').mask('00000-0000', {reverse: true});
+			$('.cep').mask('00000-000', {reverse: true});
+			
+			$("form").submit(function() {
+				  $(".cpf").unmask();
+				  $(".rg").unmask();
+				  $(".phone").unmask();
+				  $(".cep").unmask();
+			});
+		});
+		
+	</script>
 </head>
 <body>
 
 	<section layout:fragment="content">
 		<div class="panel panel-default">
-			<div class="panel-heading">Cadastrar Pessoa Física</div>
-				<div class="col-sm-8 text-left">
-					<div class="panel-body">
-					
-					</div>
+			<div class="panel-heading"><h2>Cadastrar Pessoa Física</h2></div>
+			<div class="col-sm-8 text-left">
+				<div class="panel-body">
+				
+					<form action="#" th:action="@{/cliente/pf/create}" th:object="${clientPF}" method="post">
+						
+						<div class="row top-buffer">
+							<div class="col-sm-12">
+								<label for="nome-id">Nome:</label> 
+								<input type="text" class="form-control" id="nome-id" th:field="*{nome}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-12">
+								<label for="-id">Nome da mãe:</label> 
+								<input type="text" class="form-control" id="-id" th:field="*{nomeMae}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-4">
+								<label for="data-nascimento-id">Data de nascimeto:</label> 
+								<input type="date" class="form-control" id="data-nascimento-id" th:field="*{dataNascimento}" >
+							</div>
+							<div class="col-sm-4">
+								<label for="sexo-id">Sexo:</label> 
+								<select class="form-control" id="sexo-id" th:field="*{sexo}">
+								    <option value="">Selecione</option>
+								    <option value="M">Masculino</option>
+								    <option value="F">Feminino</option>
+								    <option value="O">Outro</option>
+								    <option value="N">Não especificado</option>
+							    </select>
+							</div>
+							<div class="col-sm-4">
+								<label for="cpf-id">CPF:</label> 
+								<input type="text" class="form-control cpf" id="cpf-id" th:field="*{cpf}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-4">
+								<label for="numeroIdentidade-id">RG:</label> 
+								<input type="text" class="form-control rg" id="numeroIdentidade-id" th:field="*{numeroIdentidade}">
+							</div>
+							<div class="col-sm-4">
+								<label for="orgaoExpedidorIdentidade-id">Orgão expeditor:</label> 
+								<input type="text" class="form-control" id="orgaoExpedidorIdentidade-id" th:field="*{orgaoExpedidorIdentidade}">
+							</div>
+							<div class="col-sm-4">
+								<label for="unidadeFederativaIdentidade-id">Unidade Federativa:</label> 
+								<input type="text" class="form-control" id="unidadeFederativaIdentidade-id" th:field="*{unidadeFederativaIdentidade}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-4">
+								<label for="dataEmissaoIdentidade-id">Data de emissão:</label> 
+								<input type="date" class="form-control" id="dataEmissaoIdentidade-id" th:field="*{dataEmissaoIdentidade}">
+							</div>
+							<div class="col-sm-4">
+								<label for="idEstadoCivil-id">Estado civil:</label>
+								<input type="number" class="form-control" id="idEstadoCivil-id" th:field="*{idEstadoCivil}"> 
+<!-- 								<select class="form-control" id="idEstadoCivil-id" th:field="*{idEstadoCivil}"> -->
+<!-- 								    <option value="">Selecione</option> -->
+<!-- 								    <option value="CODIGO?">Solteiro</option> -->
+<!-- 								    <option value="CODIGO?">Casado</option> -->
+<!-- 								    <option value="CODIGO?">Divorciado</option> -->
+<!-- 							    </select> -->
+							</div>
+							<div class="col-sm-4">
+								<label for="idProfissao-id">Profissão:</label> 
+								<input type="number" class="form-control" id="idProfissao-id" th:field="*{idProfissao}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-3">
+								<label for="idNaturezaOcupacao-id">Código natureza ocupação:</label> 
+								<input type="number" class="form-control" id="idNaturezaOcupacao-id" th:field="*{idNaturezaOcupacao}">
+							</div>
+							<div class="col-sm-3">
+								<label for="idNacionalidade-id">Código da nacionalidade:</label> 
+								<input type="number" class="form-control" id="idNacionalidade-id" th:field="*{idNacionalidade}">
+							</div>
+							<div class="col-sm-3">
+								<label for="idOrigemComercial-id">Código da origem comercial:</label> 
+								<input type="number" class="form-control" id="idOrigemComercial-id" th:field="*{idOrigemComercial}">
+							</div>
+							<div class="col-sm-3">
+								<label for="idProduto-id">Código do produto:</label> 
+								<input type="number" class="form-control" id="idProduto-id" th:field="*{idProduto}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-4">
+								<label for="numeroAgencia-id">Agência:</label> 
+								<input type="number" class="form-control" id="numeroAgencia-id" th:field="*{numeroAgencia}">
+							</div>
+							<div class="col-sm-4">
+								<label for="numeroContaCorrente-id">Conta Corrente:</label> 
+								<input type="text" class="form-control" id="numeroContaCorrente-id" th:field="*{numeroContaCorrente}">
+							</div>
+							<div class="col-sm-4">
+								<label for="-id">Dia do vencimento:</label> 
+								<input type="number" class="form-control" id="-id" th:field="*{diaVencimento}">
+							
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-12">
+								<label for="email-id">e-mail:</label> 
+								<input type="email" class="form-control" id="email-id" th:field="*{email}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-12">
+								<label for="nomeImpresso-id">Nome Impresso:</label> 
+								<input type="text" class="form-control" id="nomeImpresso-id" th:field="*{nomeImpresso}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-12">
+								<label for="nomeEmpresa-id">Nome da empresa:</label> 
+								<input type="text" class="form-control" id="nomeEmpresa-id" th:field="*{nomeEmpresa}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-4">
+								<label for="valorRenda-id">Valor da renda:</label> 
+								<input type="text" class="form-control money" id="valorRenda-id" th:field="*{valorRenda}">
+							</div>
+							<div class="col-sm-4">
+								<label for="canalEntrada-id">Canal de entrada:</label> 
+								<input type="text" class="form-control" id="canalEntrada-id" th:field="*{canalEntrada}">
+							</div>
+							<div class="col-sm-4">
+								<label for="valorPontuacao-id">Valor da pontuação:</label> 
+								<input type="number" class="form-control" id="valorPontuacao-id" th:field="*{valorPontuacao}">
+							</div>
+						</div>
+						<div class="row top-buffer">
+							<div class="col-sm-3">
+								<label for="limiteGlobal-id">Limite global:</label> 
+								<input type="text" class="form-control money" id="limiteGlobal-id" th:field="*{limiteGlobal}">
+							</div>
+							<div class="col-sm-3">
+								<label for="limiteMaximo-id">Limite máximo:</label> 
+								<input type="text" class="form-control money" id="limiteMaximo-id" th:field="*{limiteMaximo}">
+							</div>
+							<div class="col-sm-3">
+								<label for="limiteParcelas-id">Limite das parcelas:</label> 
+								<input type="text" class="form-control money" id="limiteParcelas-id" th:field="*{limiteParcelas}">
+							</div>
+							<div class="col-sm-3">
+								<label for="limiteConsignado-id">Limite de consignado:</label> 
+								<input type="text" class="form-control money" id="limiteConsignado-id" th:field="*{limiteConsignado}">
+							</div>
+						</div>
+						
+						<div class="row top-buffer">
+							<div class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4>Telefones</h4>
+										<button class="btn btn-primary" type="submit" name="addPhone">Adicionar</button>
+									</div>
+									<div class="panel-body">
+										<table class="table">
+										  <thead>
+										    <tr>
+									    		<th class="col-sm-2" th:text="Tipo">Tipo</th>
+										      	<th class="col-sm-2" th:text="DDD">DDD</th>
+										      	<th class="col-sm-6" th:text="Número">Número</th>
+										      	<th class="col-sm-2" th:text="Ramal">Ramal</th>
+										      	<th></th>
+										    </tr>
+										  </thead>
+										  <tbody>
+										  	<tr th:each="phone,rowStat : *{telefones}">
+										    	<td>
+										      		<input type="number" class="form-control" th:field="*{telefones[__${rowStat.index}__].idTipoTelefone}" />
+										      	</td>
+												<td>
+													<input type="text" class="form-control" th:field="*{telefones[__${rowStat.index}__].ddd}" />
+												</td>
+												<td>
+													<input type="text" class="form-control phone" th:field="*{telefones[__${rowStat.index}__].telefone}" />
+												</td>
+												<td>
+										      		<input type="text" class="form-control" th:field="*{telefones[__${rowStat.index}__].ramal}" />
+										      	</td>
+												<td>
+													<button class="btn btn-danger" type="submit" name="removePhone" th:value="${rowStat.index}">Remover</button>
+												</td>
+										  	</tr>
+										  </tbody>
+										</table>
+									</div>
+		  						</div>
+							</div>
+						</div>
+						
+						<div class="row top-buffer">
+							<div class="panel-group">
+								<div class="panel panel-default">
+									<div class="panel-heading">
+										<h4>Endereços</h4>
+										<button class="btn btn-primary" type="submit" name="addAddress">Adicionar</button>
+									</div>
+									<div class="panel-body">
+										<div class="row top-buffer" th:each="address,rowStat : *{enderecos}">
+											<div class="col-sm-1">
+												<label for="idTipoEndereco-id">Código:</label> 
+												<input type="number" class="form-control" id="idTipoEndereco-id" th:field="*{enderecos[__${rowStat.index}__].idTipoEndereco}">
+											</div>
+											<div class="col-sm-6">
+												<label for="logradouro-id">Logradouro:</label> 
+												<input type="text" class="form-control" id="logradouro-id" th:field="*{enderecos[__${rowStat.index}__].logradouro}">
+											</div>
+											<div class="col-sm-2">
+												<label for="numero-id">Número:</label> 
+												<input type="number" class="form-control" id="numero-id" th:field="*{enderecos[__${rowStat.index}__].numero}">
+											</div>
+											<div class="col-sm-3">
+												<label for="complemento-id">Complemento:</label> 
+												<input type="text" class="form-control" id="complemento-id" th:field="*{enderecos[__${rowStat.index}__].complemento}">
+											</div>
+											
+											
+											<!--  -->
+											
+											<div class="col-sm-2">
+												<label for="cep-id">CEP:</label> 
+												<input type="text" class="form-control cep" id="cep-id" th:field="*{enderecos[__${rowStat.index}__].cep}">
+											</div>
+											<div class="col-sm-3">
+												<label for="bairro-id">Bairro:</label> 
+												<input type="text" class="form-control" id="bairro-id" th:field="*{enderecos[__${rowStat.index}__].bairro}">
+											</div>
+											<div class="col-sm-3">
+												<label for="cidade-id">Cidade:</label> 
+												<input type="text" class="form-control" id="cidade-id" th:field="*{enderecos[__${rowStat.index}__].cidade}">
+											</div>
+											<div class="col-sm-1">
+												<label for="uf-id">UF:</label> 
+												<input type="text" class="form-control" id="uf-id" th:field="*{enderecos[__${rowStat.index}__].uf}">
+											</div>
+											<div class="col-sm-3">
+												<label for="pais-id">País:</label> 
+												<input type="text" class="form-control" id="pais-id" th:field="*{enderecos[__${rowStat.index}__].pais}">
+											</div>
+											
+											<!--  -->
+											<div class="col-sm-7">
+												<label for="pontoReferencia-id">Ponto de referência:</label><br>
+												<input type="text" class="form-control" id="pontoReferencia-id" th:field="*{enderecos[__${rowStat.index}__].pontoReferencia}">
+											</div>
+											<div class="col-sm-4">
+												<label for="enderecoCorrespondencia-id">Endereço para correspondência:</label><br>
+												<input type="checkbox" th:field="*{enderecos[__${rowStat.index}__].enderecoCorrespondencia}" />
+											</div>
+											<div class="col-sm-1 top-buffer">
+												<button class="btn btn-danger" type="submit" name="removeAddress" th:value="${rowStat.index}">Remover</button>
+											</div>
+										</div>
+			  						</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row top-buffer">
+							<button type="submit" name="save" class="btn btn-primary">Submit</button>
+						</div>
+					</form>
+				
 				</div>
 			</div>
 		</div>
 	</section>
-
+	
 </body>
 </html>
