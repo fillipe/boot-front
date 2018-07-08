@@ -13,7 +13,7 @@
 				<div class="col-sm-8 text-left">
 					<div class="panel-body">
 
-						<form action="#" th:action="@{/card/generateCard}" th:object="${cardRequest}" method="post">
+						<form action="#" th:action="@{/card/create}" th:object="${cardRequest}" method="post">
 							<div class="form-group">
 								<label for="card-request-id">Código da conta:</label> 
 								<input type="text" class="form-control" id="card-request-id" th:field="*{id}">
@@ -33,7 +33,7 @@
 								</div>
 							</div>
 	
-							<button type="submit" class="btn btn-primary">Submit</button>
+							<button type="submit" name="save" class="btn btn-primary">Submeter</button>
 						</form>
 						
 						<div th:if="${cartaoEmbossingResponse != null}" th:object="${cartaoEmbossingResponse}" class="container-fluid bg-grey">

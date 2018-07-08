@@ -9,11 +9,36 @@
 
 	<section layout:fragment="content">
 		<div class="panel panel-default">
-			<div class="panel-heading">Cadastrar Senha</div>
+			<div class="panel-heading"><h2>Cadastrar Senha</h2></div>
 				<div class="col-sm-8 text-left">
 					<div class="panel-body">
-					
-					<!-- Content here -->
+
+					<div th:if="${responseStatus == 200 && returnMessage != ''}" class="alert alert-success">
+						<strong>Sucesso! </strong><span id="success-message-id" th:text="*{returnMessage}">
+					</div>
+
+					<div th:if="${responseStatus != 200 && returnMessage != ''}" class="alert alert-danger">
+						<strong>Erro! </strong><span id="error-message-id" th:text="*{returnMessage}">
+					</div>
+
+					<form action="#" th:action="@{/card/password}" th:object="${cardRequest}" method="post">
+							<div class="form-group">
+								<label for="card-request-id">Código do cartão:</label> 
+								<input type="text" class="form-control" id="card-request-id" th:field="*{id}">
+							</div>
+							
+							<div class="form-group">
+								<label for="card-request-id">Senha:</label> 
+								<input type="password" class="form-control" id="password-id" th:field="*{password}">
+							</div>
+							
+							<div class="form-group">
+								<label for="confirm-password-id">Confirme a senha:</label> 
+								<input type="password" class="form-control" id="confirm-password-id" th:field="*{confirmPassword}">
+							</div>
+	
+							<button type="submit" name="save" class="btn btn-primary">Submeter</button>
+						</form>
 					
 					</div>
 				</div>

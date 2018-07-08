@@ -1,46 +1,73 @@
 package br.com.fill.samples.bootfront.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.fill.samples.bootfront.model.CardRequest;
+import br.com.fill.samples.bootfront.model.CardResponse;
 import br.com.fill.samples.bootfront.model.CartaoEmbossingResponse;
-import br.com.fill.samples.bootfront.service.AccountService;
+import br.com.fill.samples.bootfront.service.CardService;
+import feign.FeignException;
 
 @Controller
 @RequestMapping("/card")
 public class CardController {
 	
+	private static final String SENHA_INVALIDA = "Senha inválida. Digite uma senha numérica de 4 dígitos.";
+
 	@Autowired
 	private Map<String, String> header;
 	
 	@Autowired
-	private AccountService accountService;
+	private CardService cardService;
 
-	@GetMapping("/password")
-    public String password(Model model) {
-        return "cadastrar-senha";
+	@RequestMapping("/password")
+    public ModelAndView password(final CardRequest cardRequest) {
+		ModelAndView modelAndView = new ModelAndView("cadastrar-senha");
+		modelAndView.addObject("returnMessage", "");
+		modelAndView.addObject("responseStatus", "");
+        return modelAndView;
     }
 	
-	@GetMapping("/create")
-    public String create(Model model) {
-		model.addAttribute("cardRequest", new CardRequest());
+	@RequestMapping("/create")
+    public String create(final CardRequest cardRequest) {
         return "gerar-cartao";
     }
 	
-	@PostMapping("/generateCard")
+	@RequestMapping(value="/create", params={"save"})
     public ModelAndView generateCard(CardRequest cardRequest) {
-		CartaoEmbossingResponse cardPrintShop = accountService.generateCardPrintShop(header, cardRequest.getId(),
+		CartaoEmbossingResponse cardPrintShop = cardService.generateCardPrintShop(header, cardRequest.getId(),
 				cardRequest.getCartaoEmbossingRequest());
 		ModelAndView modelAndView = new ModelAndView("gerar-cartao");
 		modelAndView.addObject("cartaoEmbossingResponse", cardPrintShop);
 		return modelAndView;
+    }
+	
+	@RequestMapping(value="/password", params={"save"})
+    public ModelAndView createPassword(final CardRequest cardRequest) {
+		int status = 0;
+		String message = "";
+		if (cardRequest.getPassword().equals(cardRequest.getConfirmPassword())) {
+			Map<String, String> createPasswordHeader =  new HashMap<>(header);
+			createPasswordHeader.put("senha", cardRequest.getPassword());
+			try {
+				CardResponse response = cardService.createPassword(createPasswordHeader, cardRequest.getId());
+				status = response.getStatusCodeValue();
+				message = response.getBody();
+			} catch (FeignException e) {
+				message = e.getMessage();
+			}
+		} else {
+			message = SENHA_INVALIDA;
+		}
+		ModelAndView modelAndView = new ModelAndView("cadastrar-senha");
+		modelAndView.addObject("responseStatus", status);
+		modelAndView.addObject("returnMessage", message);
+        return modelAndView;
     }
 }
