@@ -10,10 +10,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class CatenoBeans {
 	
-	@Value("${cateno.pier.api.rest.clientid}")
+	@Value("${cateno.pier.api.rest.clientid:nothing}")
 	private String clientId;
 	
-	@Value("${cateno.pier.api.rest.accesstoken}")
+	@Value("${cateno.pier.api.rest.accesstoken:nothing}")
 	private String accessToken;
 
 	@Bean
