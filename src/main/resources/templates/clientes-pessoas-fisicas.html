@@ -29,6 +29,14 @@
 			<div class="panel-heading"><h2>Cadastrar Pessoa Física</h2></div>
 			<div class="col-sm-8 text-left">
 				<div class="panel-body">
+					
+					<div th:if="${responseStatus == 200}" class="alert alert-success">
+						<strong>Sucesso!</strong>
+					</div>
+
+					<div th:if="${responseStatus != 200 && returnMessage != ''}" class="alert alert-danger">
+						<strong>Erro! </strong><span id="error-message-id" th:text="*{returnMessage}">
+					</div>
 				
 					<form action="#" th:action="@{/cliente/pf/create}" th:object="${clientPF}" method="post">
 						

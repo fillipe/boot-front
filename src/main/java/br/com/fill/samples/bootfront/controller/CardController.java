@@ -35,16 +35,23 @@ public class CardController {
     }
 	
 	@RequestMapping("/create")
-    public String create(final CardRequest cardRequest) {
-        return "gerar-cartao";
+    public ModelAndView create(final CardRequest cardRequest) {
+		ModelAndView modelAndView = new ModelAndView("gerar-cartao");
+		modelAndView.addObject("returnMessage", "");
+        return modelAndView;
     }
 	
 	@RequestMapping(value="/create", params={"save"})
     public ModelAndView generateCard(CardRequest cardRequest) {
-		CartaoEmbossingResponse cardPrintShop = cardService.generateCardPrintShop(header, cardRequest.getId(),
-				cardRequest.getCartaoEmbossingRequest());
 		ModelAndView modelAndView = new ModelAndView("gerar-cartao");
-		modelAndView.addObject("cartaoEmbossingResponse", cardPrintShop);
+		modelAndView.addObject("returnMessage", "");
+		try {
+			CartaoEmbossingResponse cardPrintShop = cardService.generateCardPrintShop(header, cardRequest.getId(),
+					cardRequest.getCartaoEmbossingRequest());
+			modelAndView.addObject("cartaoEmbossingResponse", cardPrintShop);
+		} catch(FeignException e) {
+			modelAndView.addObject("returnMessage", e.getMessage());
+		}
 		return modelAndView;
     }
 	
